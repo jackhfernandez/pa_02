@@ -18,6 +18,10 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+target/
+*.class
+target/
+*.workspace
 
 # --- VS CODE ---
 .vscode/
