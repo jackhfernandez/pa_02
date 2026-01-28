@@ -1,7 +1,7 @@
 package unprg.capa_presentacion;
 
 import java.awt.Color;
-import unprg.capa_logica.Usuario;
+import unprg.capa_logica.modelos.Usuario;
 import unprg.capa_presentacion.utils.UiHelper;
 
 /**

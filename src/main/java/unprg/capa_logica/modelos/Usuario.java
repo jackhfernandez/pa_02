@@ -1,4 +1,4 @@
-package unprg.capa_logica;
+package unprg.capa_logica.modelos;
 
 import java.util.Random;
 
