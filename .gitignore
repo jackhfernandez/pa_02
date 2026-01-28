@@ -1,0 +1,48 @@
+# --- JAVA & COMPILACIÓN ---
+*.class
+*.jar
+*.war
+*.ear
+/build/
+/dist/
+/nbdist/
+/bin/
+
+# --- NETBEANS ---
+# Ignoramos la carpeta private porque contiene rutas absolutas de tu PC (Windows vs Linux)
+nbproject/private/
+nbproject/Makefile-*.mk
+nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# --- VS CODE ---
+.vscode/
+*.code-workspace
+
+# --- ECLIPSE ---
+.metadata/
+.classpath
+.project
+.settings/
+*.launch
+*.tmp
+*.bak
+*.swp
+
+# --- SISTEMA OPERATIVO ---
+# Windows
+Thumbs.db
+Desktop.ini
+# Linux
+.DS_Store
+.directory
+
+# --- PERSISTENCIA DE DATOS (Opcional) ---
+# Si quieres que cada integrante empiece con archivos limpios, ignora los .txt
+# Si quieres compartir los datos de prueba iniciales, comenta las siguientes líneas
+#recursos/datos/*.txt
+#recursos/datos/*.dat
