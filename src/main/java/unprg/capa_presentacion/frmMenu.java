@@ -46,6 +46,11 @@ public class frmMenu extends javax.swing.JFrame {
         });
 
         btnProyectos.setText("PROYECTOS");
+        btnProyectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProyectosActionPerformed(evt);
+            }
+        });
 
         btnReportes.setText("REPORTES");
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +129,9 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        
+        JdReportes reportes = new JdReportes(this, true);
+        reportes.setLocationRelativeTo(null);
+        reportes.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
@@ -132,6 +139,12 @@ public class frmMenu extends javax.swing.JFrame {
         materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
     }//GEN-LAST:event_btnMaterialesActionPerformed
+
+    private void btnProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectosActionPerformed
+        JdProyectos proyectos = new JdProyectos(this, true);
+        proyectos.setLocationRelativeTo(null);
+        proyectos.setVisible(true);
+    }//GEN-LAST:event_btnProyectosActionPerformed
 
     
 
