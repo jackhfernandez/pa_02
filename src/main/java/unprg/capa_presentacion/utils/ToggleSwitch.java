@@ -11,7 +11,7 @@ import java.awt.geom.RoundRectangle2D;
  * Toggle Switch moderno para reemplazar JCheckBox
  * 
  * USO EN NETBEANS:
- * Custom creation: new Recursos.componentes.ToggleSwitch()
+ * Custom creation: unprg.capa_presentacion.utils.ToggleSwitch()
  * 
  * Métodos útiles:
  * - setSelected(boolean) - activar/desactivar

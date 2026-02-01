@@ -12,7 +12,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
+/**
+ *
+ * @author mauricio and jackh
+ */
 public class frmMenu extends javax.swing.JFrame {
 
     /**
@@ -555,7 +558,10 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManGestionMouseClicked
 
     private void btnManPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManPedidoMouseClicked
-    //agregar
+    JdPedidos ventana =  new JdPedidos(this, true);
+    ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    ventana.setLocationRelativeTo(this);
+    ventana.setVisible(true);
     }//GEN-LAST:event_btnManPedidoMouseClicked
 
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
