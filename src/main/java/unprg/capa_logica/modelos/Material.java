@@ -13,17 +13,37 @@ public class Material implements Serializable {
     private double precioUnitario;
     private int cantidad;
     private String unidadMedida;
+    private double subTotal;
    
     public Material(){
         
     }
 
-    public Material(String nombProducto, double precioUnitario, int cantidad, String unidadMedida) {
+    public Material(String nombProducto, double precioUnitario, int cantidad, String unidadMedida, double subTotal) {
         this.nombProducto = nombProducto;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.unidadMedida = unidadMedida;
+        this.subTotal = subTotal;
     }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    
     
     public String getNombProducto() {
         return nombProducto;
