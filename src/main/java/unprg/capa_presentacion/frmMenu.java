@@ -1,7 +1,16 @@
 
 package unprg.capa_presentacion;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JDialog;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -14,6 +23,9 @@ public class frmMenu extends javax.swing.JFrame {
      */
     public frmMenu() {
         initComponents();
+        
+        inicializarGrafico();
+        
         jdLogin login = new jdLogin(null, true);
         this.setLocationRelativeTo(null);
         login.setResizable(false);
@@ -51,6 +63,8 @@ public class frmMenu extends javax.swing.JFrame {
         logoReportes = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        panelGrafico = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -269,20 +283,46 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(244, 244, 244))
         );
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelGrafico.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -338,11 +378,48 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel logoInventario;
     private javax.swing.JLabel logoMaterial;
     private javax.swing.JLabel logoProyectos;
     private javax.swing.JLabel logoReportes;
+    private javax.swing.JPanel panelGrafico;
     // End of variables declaration//GEN-END:variables
+
+//para porbar grafico luego lo muevo a uihelper
+ private void inicializarGrafico() {
+    // 1. Datos: Valor, Serie (Stock), Categoría (Material)
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    dataset.addValue(120, "Stock", "Varillas 1/2\"");
+    dataset.addValue(45, "Stock", "Yeso");
+    dataset.addValue(300, "Stock", "Cemento");
+
+    // 2. Crear el objeto JFreeChart (sin títulos ni leyendas para que sea limpio)
+    JFreeChart chart = ChartFactory.createBarChart(
+            null, null, null, dataset, 
+            PlotOrientation.VERTICAL, false, false, false);
+
+    // 3. Personalización Estética (Lo que hablamos antes)
+    CategoryPlot plot = chart.getCategoryPlot();
+    plot.setBackgroundPaint(Color.WHITE); // Fondo blanco como en la imagen
+    plot.setOutlineVisible(false);        // Quitar borde exterior
+    plot.setRangeGridlinesVisible(false); // Quitar líneas horizontales
+
+    // 4. Personalizar las Barras
+    BarRenderer renderer = (BarRenderer) plot.getRenderer();
+    renderer.setSeriesPaint(0, new Color(64, 123, 255)); // El azul de tu captura
+    renderer.setShadowVisible(false);                   // Sin sombras feas
+    renderer.setMaximumBarWidth(0.15);                  // Barras delgadas y elegantes
+
+    // 5. Vincular al JPanel de NetBeans
+    ChartPanel chartPanel = new ChartPanel(chart);
+    chartPanel.setBackground(Color.WHITE);
+    
+    panelGrafico.removeAll(); // Limpiar por si acaso
+    panelGrafico.add(chartPanel, BorderLayout.CENTER);
+    panelGrafico.revalidate();
+    panelGrafico.repaint();
+}
 }
