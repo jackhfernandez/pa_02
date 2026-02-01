@@ -163,7 +163,7 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGroup(btnManGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addGap(15, 15, 15)
                         .addGroup(btnManGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
                                 .addComponent(jLabel15)

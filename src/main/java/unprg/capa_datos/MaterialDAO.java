@@ -2,6 +2,7 @@ package unprg.capa_datos;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.IntStream;
 import unprg.capa_logica.modelos.Material;
 
 /**
@@ -9,9 +10,9 @@ import unprg.capa_logica.modelos.Material;
  * @author jackh
  */
 public class MaterialDAO implements IGenericDAO<Material> {
-
+    
     private List<Material> materiales;
-    private final String DIRECTORIO = "recursos/data";
+    private final String DIRECTORIO = "data";
     private final String RUTA = DIRECTORIO + "/materiales.dat";
 
     public MaterialDAO() {
@@ -24,7 +25,7 @@ public class MaterialDAO implements IGenericDAO<Material> {
     }
 
     @Override
-    public void guardar(Material material) {
+    public void agregar(Material material) {
         materiales.add(material);
         ArchivoHelper.guardarArchivo(RUTA, materiales);
     }
@@ -38,5 +39,24 @@ public class MaterialDAO implements IGenericDAO<Material> {
     public void actualizar(List<Material> lista) {
         this.materiales = lista;
         ArchivoHelper.guardarArchivo(RUTA, materiales);
+    }
+    
+    public Material buscar(String nombre) {
+        for (Material material : materiales) {
+            if (material.getNombProducto().equals(nombre)) {
+                return material;
+            }
+        }
+        return null;
+    }
+    
+    public int posicion(String nombre) {
+        for (int i = 0; i < this.materiales.size(); i++) {
+            if (this.materiales.get(i).getNombProducto().equalsIgnoreCase(nombre)) {
+            return i;
+            }
+           
+        }
+        return -1;
     }
 }

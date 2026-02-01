@@ -1,5 +1,12 @@
-
 package unprg.capa_presentacion;
+
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import unprg.capa_datos.MaterialDAO;
+import unprg.capa_logica.modelos.Material;
 
 /**
  *
@@ -7,12 +14,16 @@ package unprg.capa_presentacion;
  */
 public class JdMateriales extends javax.swing.JDialog {
 
+    private MaterialDAO materialDAO = new MaterialDAO();
+
     /**
      * Creates new form JdMateriales
      */
     public JdMateriales(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listado();
+        configurarFiltro();
     }
 
     /**
@@ -27,23 +38,22 @@ public class JdMateriales extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        btnDarBaja = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCantidad = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         txtTipoMedida = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        STOCK = new javax.swing.JLabel();
+        txtStock = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
@@ -53,8 +63,11 @@ public class JdMateriales extends javax.swing.JDialog {
         jLabel1.setText("Hola soy material me identifico como RIPIO");
 
         btnAgregar.setText("AGREGAR");
-
-        btnEliminar.setText("ELIMINAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -63,9 +76,12 @@ public class JdMateriales extends javax.swing.JDialog {
             }
         });
 
-        btnDarBaja.setText("DAR BAJA");
-
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -81,13 +97,11 @@ public class JdMateriales extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(btnDarBaja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35))
         );
@@ -98,26 +112,24 @@ public class JdMateriales extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDarBaja)
-                    .addComponent(btnEliminar))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnLimpiar))
                 .addGap(27, 27, 27))
         );
 
-        jLabel2.setText("ID");
+        jLabel2.setText("BUSCAR");
 
         jLabel3.setText("NOMBRE");
 
-        jLabel4.setText("PRECIO");
+        jLabel4.setText("TIPO DE MEDIDA");
 
-        jLabel5.setText("CANTIDAD");
+        jLabel5.setText("PRECIO");
 
-        jLabel6.setText("TIPO DE MEDIDA");
+        STOCK.setText("STOCK");
+
+        jLabel7.setText("DESCRIPCION");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -127,19 +139,18 @@ public class JdMateriales extends javax.swing.JDialog {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNombre)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPrecio)
+                    .addComponent(txtTipoMedida)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCantidad)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTipoMedida))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtPrecio)
+                    .addComponent(STOCK, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(txtStock)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtBuscar)
+                    .addComponent(txtDescripcion)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,26 +158,28 @@ public class JdMateriales extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTipoMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(STOCK)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTipoMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,6 +190,11 @@ public class JdMateriales extends javax.swing.JDialog {
 
             }
         ));
+        tblListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListadoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListado);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -192,7 +210,7 @@ public class JdMateriales extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -203,14 +221,14 @@ public class JdMateriales extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50))
+                                .addGap(9, 9, 9)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(51, 51, 51)))
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(51, 51, 51)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
@@ -225,31 +243,239 @@ public class JdMateriales extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        if (txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showConfirmDialog(
+                this,
+                "Se requiere el nombre del material",
+                "Confirmar",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        String cadena = "¿Estas seguro de modificar el producto " + txtNombre.getText() + "?";
+        int respuesta = JOptionPane.showConfirmDialog(
+            this,
+            cadena,
+            "Confirmar",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            String nombreBuscado = txtNombre.getText().trim();
+            int pos = materialDAO.posicion(nombreBuscado);
+
+            if (pos != -1) {
+                List<Material> listaTemporal = materialDAO.listar();
+                String nombreNuevo = txtNombre.getText().trim().toUpperCase();
+
+                for (int i = 0; i < listaTemporal.size(); i++) {
+                    if (i != pos && listaTemporal.get(i).getNombProducto().equalsIgnoreCase(nombreNuevo)) {
+                        JOptionPane.showMessageDialog(
+                            this,
+                            "Ya existe otro material con el nombre: " + nombreNuevo,
+                            "Error - Material duplicado",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+                }
+
+                Material materialEditado = new Material(
+                    txtNombre.getText(),
+                    txtDescripcion.getText(),
+                    txtTipoMedida.getText(),
+                    Double.parseDouble(txtPrecio.getText()),
+                    Integer.parseInt(txtStock.getText())
+                );
+
+                listaTemporal.set(pos, materialEditado);
+                materialDAO.actualizar(listaTemporal);
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Material " + materialEditado.getNombProducto() + " modificado",
+                    "Mensaje",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+                listado();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Material no encontrado",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if (txtNombre.getText().isEmpty()
+            || txtTipoMedida.getText().isEmpty()
+            || txtPrecio.getText().isEmpty()
+            || txtStock.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Todos los campos son obligatorios",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } else {
+            String nombreNuevo = txtNombre.getText().trim().toUpperCase();
+            Material existente = materialDAO.buscar(nombreNuevo);
+
+            if (existente != null) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Ya existe un material con el nombre: " + nombreNuevo,
+                    "Error - Duplicado",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+            Material material = new Material(
+                nombreNuevo,
+                txtDescripcion.getText(),
+                txtTipoMedida.getText(),
+                Double.parseDouble(txtPrecio.getText()),
+                Integer.parseInt(txtStock.getText())
+            );
+            materialDAO.agregar(material);
+            JOptionPane.showMessageDialog(this, "Material " + material.getNombProducto() + " agregado exitosamente");
+            listado();
+            limpiar();
+        }
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
+        int fila = tblListado.getSelectedRow();
+        if (fila >= 0) {
+            txtNombre.setText(tblListado.getValueAt(fila, 0).toString());
+            txtDescripcion.setText(tblListado.getValueAt(fila, 1).toString());
+            txtPrecio.setText(tblListado.getValueAt(fila, 2).toString());
+            txtStock.setText(tblListado.getValueAt(fila, 3).toString());
+            txtTipoMedida.setText(tblListado.getValueAt(fila, 4).toString());
+        }
+    }//GEN-LAST:event_tblListadoMouseClicked
+
+    private void configurarFiltro() {
+        txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filtrar();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filtrar();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filtrar();
+            }
+        });
+    }
+
+    private void filtrar() {
+        String textoBusqueda = txtBuscar.getText().trim().toLowerCase();
+
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        modelo.addColumn("Materiales");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        modelo.addColumn("Tipo medida");
+
+        List<Material> materiales = materialDAO.listar();
+
+        if (materiales != null) {
+            for (Material m : materiales) {
+                if (textoBusqueda.isEmpty()
+                    || m.getNombProducto().toLowerCase().contains(textoBusqueda)) {
+                    modelo.addRow(new Object[]{
+                        m.getNombProducto(),
+                        m.getDescripcion(),
+                        m.getPrecioUnitario(),
+                        m.getStock(),
+                        m.getUnidadMedida()
+                    });
+                }
+            }
+        }
+        tblListado.setModel(modelo);
+    }
+
+    private void listado() {
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        modelo.addColumn("Materiales");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        modelo.addColumn("Tipo medida");
+
+        List<Material> materiales = new MaterialDAO().listar();
+
+        if (materiales != null) {
+            for (Material m : materiales) {
+                modelo.addRow(new Object[]{
+                    m.getNombProducto(),
+                    m.getDescripcion(),
+                    m.getPrecioUnitario(),
+                    m.getStock(),
+                    m.getUnidadMedida()
+                });
+            }
+        }
+        tblListado.setModel(modelo);
+    }
+
+    private void limpiar() {
+        txtBuscar.setText("");
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtTipoMedida.setText("");
+        txtPrecio.setText("");
+        txtStock.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel STOCK;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnDarBaja;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
@@ -258,16 +484,17 @@ public class JdMateriales extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblListado;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txtTipoMedida;
     // End of variables declaration//GEN-END:variables
 }

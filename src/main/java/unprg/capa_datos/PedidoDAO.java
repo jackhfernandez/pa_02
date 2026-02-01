@@ -11,7 +11,7 @@ import unprg.capa_logica.modelos.Pedido;
 public class PedidoDAO implements IGenericDAO<Pedido> {
 
     private List<Pedido> pedidos;
-    private final String DIRECTORIO = "recursos/data";
+    private final String DIRECTORIO = "data";
     private final String RUTA = DIRECTORIO + "/pedidos.dat";
 
     public PedidoDAO() {
@@ -24,7 +24,7 @@ public class PedidoDAO implements IGenericDAO<Pedido> {
     }
 
     @Override
-    public void guardar(Pedido pedido) {
+    public void agregar(Pedido pedido) {
         pedidos.add(pedido);
         ArchivoHelper.guardarArchivo(RUTA, pedidos);
     }

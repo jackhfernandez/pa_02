@@ -10,21 +10,20 @@ import java.io.Serializable;
 public class Material implements Serializable {
     private static final long serialVersionUID = 1L;
     private String nombProducto;
+    private String descripcion;
     private double precioUnitario;
-    private int cantidad;
+    private int stock;
     private String unidadMedida;
-    private double subTotal;
    
-    public Material(){
-        
+    public Material(){       
     }
 
-    public Material(String nombProducto, double precioUnitario, int cantidad, String unidadMedida, double subTotal) {
+    public Material(String nombProducto, String descripcion, String unidadMedida, double precioUnitario, int stock) {
         this.nombProducto = nombProducto;
+        this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
-        this.cantidad = cantidad;
+        this.stock = stock;
         this.unidadMedida = unidadMedida;
-        this.subTotal = subTotal;
     }
 
     public double getPrecioUnitario() {
@@ -34,16 +33,6 @@ public class Material implements Serializable {
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
-
-    
     
     public String getNombProducto() {
         return nombProducto;
@@ -69,11 +58,19 @@ public class Material implements Serializable {
         this.precioUnitario = costo;
     }
     
-    public int getCantidad(){
-        return cantidad;
+    public int getStock(){
+        return stock;
     }
     
-    public void setCantidad(int cantidad){
-        this.cantidad = cantidad;
+    public void setStock(int stock){
+        this.stock = stock;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

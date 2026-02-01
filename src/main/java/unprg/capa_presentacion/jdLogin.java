@@ -65,7 +65,7 @@ public class jdLogin extends javax.swing.JDialog {
             }
         });
 
-        btnIniciarSesion.setText("Iniciar Secion");
+        btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);

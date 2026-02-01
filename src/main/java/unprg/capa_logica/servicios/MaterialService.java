@@ -17,15 +17,15 @@ public class MaterialService {
     }
     
     public void registrarMaterial(Material m) {
-        materilaDAO.guardar(m);
+        materilaDAO.agregar(m);
     }
     
     public boolean descontarStock(String nombreMaterial, int cantidadRestar) {
         List<Material> lista = materilaDAO.listar();
         for (Material m : lista) {
             if (m.getNombProducto().equalsIgnoreCase(nombreMaterial)) {
-                if (m.getCantidad() >= cantidadRestar) {
-                    m.setCantidad(m.getCantidad() - cantidadRestar);
+                if (m.getStock() >= cantidadRestar) {
+                    m.setStock(m.getStock() - cantidadRestar);
                     materilaDAO.actualizar(lista);
                     return true;
                 }
@@ -40,8 +40,8 @@ public class MaterialService {
         
         for (Material m : listaActual) {
             if (m.getNombProducto().equalsIgnoreCase(nuevoMaterial.getNombProducto())) {
-                int stockActualizado = m.getCantidad() + nuevoMaterial.getCantidad();
-                m.setCantidad(stockActualizado);
+                int stockActualizado = m.getStock() + nuevoMaterial.getStock();
+                m.setStock(stockActualizado);
                 m.setCosto(nuevoMaterial.getCosto());
                 
                 encontrado = true;

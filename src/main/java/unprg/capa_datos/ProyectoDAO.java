@@ -10,7 +10,7 @@ import unprg.capa_logica.modelos.Proyecto;
  */
 public class ProyectoDAO implements IGenericDAO<Proyecto> {
 
-    private final String DIRECTORIO = "recursos/data";
+    private final String DIRECTORIO = "data";
     private final String RUTA = DIRECTORIO + "/proyectos.dat";
     private List<Proyecto> proyectos;
 
@@ -24,7 +24,7 @@ public class ProyectoDAO implements IGenericDAO<Proyecto> {
     }
 
     @Override
-    public void guardar(Proyecto objeto) {
+    public void agregar(Proyecto objeto) {
         proyectos.add(objeto);
         ArchivoHelper.guardarArchivo(RUTA, proyectos);
     }
