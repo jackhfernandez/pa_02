@@ -2,7 +2,6 @@ package unprg.capa_datos;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.IntStream;
 import unprg.capa_logica.modelos.Material;
 
 /**
@@ -58,5 +57,14 @@ public class MaterialDAO implements IGenericDAO<Material> {
            
         }
         return -1;
+    }
+    
+    public Material getElemento(String producto) {
+        for (Material m : materiales) {
+            if (m.getNombProducto().equalsIgnoreCase(producto)) {
+                return m;
+            }
+        }
+        return null;
     }
 }
