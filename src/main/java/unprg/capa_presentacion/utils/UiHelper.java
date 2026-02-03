@@ -4,17 +4,23 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -23,7 +29,15 @@ import javax.swing.UIManager;
 public class UiHelper {
 
     public static final Color MORADO_PRINCIPAL = new Color(160, 32, 240);
-    public static final Color FONDO_CARD = new Color(30, 41, 59);
+    public static final Color FONDO_CARD = new Color(201, 201, 245); // total inventario
+    public static final Color FONDO_OSCURO = new Color(227, 235, 246); // celeste a blanco
+    public static final Color FONDO_CLARO = new Color(197, 197, 237); // tabla
+    public static final Color TEXTO_PRIMARIO = new Color(30, 57, 86);
+    public static final Color TEXTO_SECUNDARIO = new Color(180, 180, 180);
+    public static final Color VERDE_EXITO = new Color(40, 167, 69);
+    public static final Color ROJO_ALERTA = new Color(220, 53, 69);
+    public static final Color AMARILLO_ADVERTENCIA = new Color(255, 193, 7);
+    public static final Color AZUL_INFO = new Color(23, 162, 184);
 
     static {
         UIManager.put("TextComponent.arc", 999);
@@ -309,6 +323,150 @@ public class UiHelper {
                 return new Color(r, g, b);
             }
         });
+    }
+
+    // ========== MÉTODOS PARA REPORTES ==========
+    
+    /**
+     * Estiliza una tabla con el tema FlatLaf oscuro
+     */
+    public static void estilarTabla(JTable tabla) {
+        tabla.setBackground(FONDO_CLARO);
+        tabla.setForeground(TEXTO_PRIMARIO);
+        tabla.setSelectionBackground(MORADO_PRINCIPAL);
+        tabla.setSelectionForeground(Color.WHITE);
+        tabla.setGridColor(new Color(60, 60, 65));
+        tabla.setRowHeight(35);
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new Dimension(1, 1));
+        tabla.setFillsViewportHeight(true);
+        
+        tabla.putClientProperty("JTable.showHorizontalLines", true);
+        tabla.putClientProperty("JTable.showVerticalLines", true);
+        
+        // Estilizar header
+        JTableHeader header = tabla.getTableHeader();
+        header.setBackground(FONDO_OSCURO);
+        header.setForeground(TEXTO_PRIMARIO);
+        header.setFont(header.getFont().deriveFont(Font.BOLD, 13f));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+        header.setReorderingAllowed(false);
+        
+        // Centrar contenido de celdas
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    
+    /**
+     * Estiliza un JScrollPane para tablas
+     */
+    public static void estilarScrollPane(JScrollPane scrollPane) {
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getViewport().setBackground(FONDO_CLARO);
+        scrollPane.putClientProperty("JScrollPane.smoothScrolling", true);
+    }
+    
+    /**
+     * Estiliza un JTabbedPane con el tema personalizado
+     */
+    public static void estilarTabbedPane(JTabbedPane tabbedPane) {
+        tabbedPane.putClientProperty("JTabbedPane.tabType", "card");
+        tabbedPane.putClientProperty("JTabbedPane.tabHeight", 40);
+        tabbedPane.putClientProperty("JTabbedPane.tabInsets", new java.awt.Insets(8, 20, 8, 20));
+        tabbedPane.putClientProperty("JTabbedPane.selectedBackground", MORADO_PRINCIPAL);
+        tabbedPane.putClientProperty("JTabbedPane.selectedForeground", Color.WHITE);
+        tabbedPane.putClientProperty("JTabbedPane.showTabSeparators", false);
+        tabbedPane.setFont(tabbedPane.getFont().deriveFont(Font.BOLD, 12f));
+    }
+    
+    /**
+     * Estiliza un campo de búsqueda para filtros
+     */
+    public static void estilarCampoBusqueda(JTextField campo, String placeholder) {
+        String style = "background: #2a2b2e;"
+                + "foreground: #ffffff;"
+                + "placeholderForeground: #8b8b8d;"
+                + "focusedBackground: #34353a;"
+                + "borderColor: #3d3e42;"
+                + "focusedBorderColor: " + colorToHex(MORADO_PRINCIPAL) + ";"
+                + "showClearButton: true;";
+        
+        campo.putClientProperty("FlatLaf.style", style);
+        campo.putClientProperty("JTextField.placeholderText", placeholder);
+        campo.putClientProperty("JTextField.padding", new java.awt.Insets(8, 12, 8, 12));
+        
+        try {
+            FlatSVGIcon icon = new FlatSVGIcon("icons/search.svg", 16, 16);
+            icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> TEXTO_SECUNDARIO));
+            campo.putClientProperty("JTextField.leadingIcon", icon);
+        } catch (Exception e) {
+            // Si no existe el icono, continuar sin él
+        }
+    }
+    
+    /**
+     * Estiliza un JComboBox
+     */
+    public static void estilarComboBox(JComboBox<?> combo) {
+        combo.putClientProperty("JComboBox.buttonStyle", "none");
+        combo.putClientProperty("FlatLaf.style", 
+            "background: #2a2b2e;" +
+            "foreground: #ffffff;" +
+            "buttonBackground: " + colorToHex(MORADO_PRINCIPAL) + ";" +
+            "buttonArrowColor: #ffffff;");
+    }
+    
+    /**
+     * Crea un panel de estadística para el dashboard de reportes
+     */
+    public static JPanel crearPanelEstadistica(String titulo, String valor, Color colorAccento) {
+        JPanel panel = new JPanel(new BorderLayout(10, 5));
+        panel.setBackground(FONDO_CARD);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(colorAccento, 2),
+            BorderFactory.createEmptyBorder(15, 20, 15, 20)
+        ));
+        panel.putClientProperty("JComponent.arc", 20);
+        
+        JLabel lblTitulo = new JLabel(titulo.toUpperCase());
+        lblTitulo.setForeground(TEXTO_SECUNDARIO);
+        lblTitulo.setFont(lblTitulo.getFont().deriveFont(Font.BOLD, 11f));
+        
+        JLabel lblValor = new JLabel(valor);
+        lblValor.setForeground(colorAccento);
+        lblValor.setFont(lblValor.getFont().deriveFont(Font.BOLD, 24f));
+        
+        JPanel pnlContenido = new JPanel(new GridLayout(2, 1, 0, 5));
+        pnlContenido.setOpaque(false);
+        pnlContenido.add(lblTitulo);
+        pnlContenido.add(lblValor);
+        
+        panel.add(pnlContenido, BorderLayout.CENTER);
+        
+        return panel;
+    }
+    
+    /**
+     * Estiliza un botón secundario (para acciones como exportar, refrescar)
+     */
+    public static void estilarBotonSecundario(JButton boton) {
+        boton.putClientProperty("JButton.buttonType", "roundRect");
+        boton.putClientProperty("FlatLaf.style",
+            "background: #2a2b2e;" +
+            "foreground: #ffffff;" +
+            "hoverBackground: #3d3e42;" +
+            "borderColor: " + colorToHex(MORADO_PRINCIPAL) + ";");
+        boton.setFocusable(false);
+    }
+    
+    /**
+     * Formatea un valor monetario a string
+     */
+    public static String formatearMoneda(double valor) {
+        return String.format("S/ %.2f", valor);
     }
 
 }

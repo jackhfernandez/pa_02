@@ -1,9 +1,10 @@
-
 package unprg.capa_presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Panel;
 import javax.swing.JDialog;
+import javax.swing.JTabbedPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,18 +19,20 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class frmMenu extends javax.swing.JFrame {
 
+    private JTabbedPane contenedorReportes;
     /**
      * Creates new form frmMenu
      */
     public frmMenu() {
         initComponents();
-        
+
         inicializarGrafico();
-        
+
         jdLogin login = new jdLogin(null, true);
         this.setLocationRelativeTo(null);
         login.setResizable(false);
         login.setVisible(true);
+        contenedorReportes = new JTabbedPane();
     }
 
     /**
@@ -541,31 +544,31 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManMaterialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManMaterialesMouseClicked
-    JdMateriales ventana =  new JdMateriales(this, true);
-    ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    ventana.setLocationRelativeTo(this);
-    ventana.setVisible(true);
+        JdMateriales ventana = new JdMateriales(this, true);
+        ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnManMaterialesMouseClicked
 
     private void btnManGestionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManGestionMouseClicked
-    JdProyectos ventana =  new JdProyectos(this, true);
-    ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    ventana.setLocationRelativeTo(this);
-    ventana.setVisible(true);
+        JdProyectos ventana = new JdProyectos(this, true);
+        ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnManGestionMouseClicked
 
     private void btnManPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManPedidoMouseClicked
-    JdPedidos ventana =  new JdPedidos(this, true);
-    ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    ventana.setLocationRelativeTo(this);
-    ventana.setVisible(true);
+        JdPedidos ventana = new JdPedidos(this, true);
+        ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnManPedidoMouseClicked
 
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
-    JdReportes ventana =  new JdReportes(this, true);
-    ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    ventana.setLocationRelativeTo(this);
-    ventana.setVisible(true);
+        JdReportes ventana = new JdReportes(this, true);
+        ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnReportesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -614,37 +617,37 @@ public class frmMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 //para porbar grafico luego lo muevo a uihelper
- private void inicializarGrafico() {
-    // 1. Datos: Valor, Serie (Stock), Categoría (Material)
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    dataset.addValue(120, "Stock", "Varillas 1/2\"");
-    dataset.addValue(45, "Stock", "Yeso");
-    dataset.addValue(300, "Stock", "Cemento");
+    private void inicializarGrafico() {
+        // 1. Datos: Valor, Serie (Stock), Categoría (Material)
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(120, "Stock", "Varillas 1/2\"");
+        dataset.addValue(45, "Stock", "Yeso");
+        dataset.addValue(300, "Stock", "Cemento");
 
-    // 2. Crear el objeto JFreeChart (sin títulos ni leyendas para que sea limpio)
-    JFreeChart chart = ChartFactory.createBarChart(
-            null, null, null, dataset, 
+        // 2. Crear el objeto JFreeChart (sin títulos ni leyendas para que sea limpio)
+        JFreeChart chart = ChartFactory.createBarChart(
+            null, null, null, dataset,
             PlotOrientation.VERTICAL, false, false, false);
 
-    // 3. Personalización Estética (Lo que hablamos antes)
-    CategoryPlot plot = chart.getCategoryPlot();
-    plot.setBackgroundPaint(Color.WHITE); // Fondo blanco como en la imagen
-    plot.setOutlineVisible(false);        // Quitar borde exterior
-    plot.setRangeGridlinesVisible(false); // Quitar líneas horizontales
+        // 3. Personalización Estética (Lo que hablamos antes)
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE); // Fondo blanco como en la imagen
+        plot.setOutlineVisible(false);        // Quitar borde exterior
+        plot.setRangeGridlinesVisible(false); // Quitar líneas horizontales
 
-    // 4. Personalizar las Barras
-    BarRenderer renderer = (BarRenderer) plot.getRenderer();
-    renderer.setSeriesPaint(0, new Color(64, 123, 255)); // El azul de tu captura
-    renderer.setShadowVisible(false);                   // Sin sombras feas
-    renderer.setMaximumBarWidth(0.15);                  // Barras delgadas y elegantes
+        // 4. Personalizar las Barras
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, new Color(64, 123, 255)); // El azul de tu captura
+        renderer.setShadowVisible(false);                   // Sin sombras feas
+        renderer.setMaximumBarWidth(0.15);                  // Barras delgadas y elegantes
 
-    // 5. Vincular al JPanel de NetBeans
-    ChartPanel chartPanel = new ChartPanel(chart);
-    chartPanel.setBackground(Color.WHITE);
-    
-    panelGrafico.removeAll(); // Limpiar por si acaso
-    panelGrafico.add(chartPanel, BorderLayout.CENTER);
-    panelGrafico.revalidate();
-    panelGrafico.repaint();
-}
+        // 5. Vincular al JPanel de NetBeans
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setBackground(Color.WHITE);
+
+        panelGrafico.removeAll(); // Limpiar por si acaso
+        panelGrafico.add(chartPanel, BorderLayout.CENTER);
+        panelGrafico.revalidate();
+        panelGrafico.repaint();
+    }
 }

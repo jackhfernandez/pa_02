@@ -2,7 +2,6 @@ package unprg.capa_presentacion;
 
 import java.awt.Frame;
 import java.awt.HeadlessException;
-import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -478,7 +477,7 @@ public class JdPedidos extends javax.swing.JDialog {
             }
             
             JOptionPane.showMessageDialog(this, "Pedido guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            limpiarFormulario();
+            limpiar();
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar pedido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -610,7 +609,7 @@ public class JdPedidos extends javax.swing.JDialog {
         tblListado.setModel(modelo);
     }
     
-    private void limpiarFormulario() {
+    private void limpiar() {
         txtNombreProyecto.setText("");
         txtDireccion.setText("");
         dateInicio.setDate(null);
@@ -622,7 +621,6 @@ public class JdPedidos extends javax.swing.JDialog {
     
      private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblListadoMouseClicked
     }// GEN-LAST:event_tblListadoMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarMaterial;
