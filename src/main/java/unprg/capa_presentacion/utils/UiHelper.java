@@ -247,10 +247,9 @@ public class UiHelper {
     }
 
     public static void estilarCard(JComponent panel) {
-        panel.putClientProperty("JComponent.arc", 40);
         panel.putClientProperty("FlatLaf.style",
-                "background: " + colorToHex(FONDO_CARD) + ";"
-                + "borderColor: " + colorToHex(CYAN_BORDE) + ";");
+                "arc: 40; background: " + colorToHex(FONDO_CARD) + ";");
+        panel.setBorder(BorderFactory.createLineBorder(CYAN_BORDE, 1));
     }
 
     /**

@@ -8,6 +8,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import unprg.capa_datos.ProyectoDAO;
 import unprg.capa_logica.modelos.Proyecto;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -23,6 +24,7 @@ public class JdProyectos extends javax.swing.JDialog {
     public JdProyectos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         listado();
         configurarFiltro();
     }
@@ -458,6 +460,14 @@ public class JdProyectos extends javax.swing.JDialog {
             }
         }
         tblListado.setModel(modelo);
+    }
+
+    private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtBuscar, "Buscar proyecto...");
+        UiHelper.estilarCampoForm(txtNombre, "Nombre del proyecto");
+        UiHelper.estilarCampoForm(txtDescripcion, "Descripción breve");
+        UiHelper.estilarCampoForm(txtUbicacion, "Dirección o ubicación");
+        UiHelper.estilarFecha(dateInicio);
     }
 
     private void limpiar() {

@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import unprg.capa_datos.ProyectoDAO;
 import unprg.capa_logica.modelos.Proyecto;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -21,6 +22,7 @@ public class JdAgreagarProyecto extends javax.swing.JDialog {
     public JdAgreagarProyecto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         listado();
     }
 
@@ -97,6 +99,10 @@ public class JdAgreagarProyecto extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtBuscar, "Buscar proyecto...");
+    }
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
         if (evt.getClickCount() == 1) {

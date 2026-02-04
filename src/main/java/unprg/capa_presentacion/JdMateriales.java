@@ -7,6 +7,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import unprg.capa_datos.MaterialDAO;
 import unprg.capa_logica.modelos.Material;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -22,6 +23,7 @@ public class JdMateriales extends javax.swing.JDialog {
     public JdMateriales(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         listado();
         configurarFiltro();
     }
@@ -462,6 +464,15 @@ public class JdMateriales extends javax.swing.JDialog {
             }
         }
         tblListado.setModel(modelo);
+    }
+
+    private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtBuscar, "Buscar material...");
+        UiHelper.estilarCampoForm(txtNombre, "Nombre del material");
+        UiHelper.estilarCampoForm(txtDescripcion, "Descripción breve");
+        UiHelper.estilarCampoForm(txtTipoMedida, "Ej: kg, m, unidad");
+        UiHelper.estilarCampoForm(txtPrecio, "Precio unitario");
+        UiHelper.estilarCampoForm(txtStock, "Cantidad disponible");
     }
 
     private void limpiar() {

@@ -13,6 +13,7 @@ import unprg.capa_datos.ProyectoDAO;
 import unprg.capa_logica.modelos.Material;
 import unprg.capa_logica.modelos.Pedido;
 import unprg.capa_logica.modelos.Proyecto;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -34,6 +35,7 @@ public class JdPedidos extends javax.swing.JDialog {
     public JdPedidos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         materialDAO = new MaterialDAO();
         pedidoDAO = new PedidoDAO();
         proyectoDAO = new ProyectoDAO();
@@ -609,6 +611,16 @@ public class JdPedidos extends javax.swing.JDialog {
         tblListado.setModel(modelo);
     }
     
+    private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtNombreProyecto, "Nombre del proyecto");
+        UiHelper.estilarCampoForm(txtDireccion, "Dirección de entrega");
+        UiHelper.estilarCampoForm(txtNombreProducto, "Material seleccionado");
+        UiHelper.estilarCampoForm(txtDscto, "% descuento");
+        UiHelper.estilarCampoForm(txtNumeroVenta, "Nro. pedido");
+        UiHelper.estilarFecha(dateInicio);
+        UiHelper.estilarFecha(jdFecha);
+    }
+
     private void limpiar() {
         txtNombreProyecto.setText("");
         txtDireccion.setText("");

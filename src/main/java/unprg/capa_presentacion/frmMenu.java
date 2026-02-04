@@ -1,22 +1,12 @@
 package unprg.capa_presentacion;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Panel;
-import java.util.List;
+
 import javax.swing.JDialog;
-import javax.swing.JPanel;
+
 import javax.swing.JTabbedPane;
-import unprg.capa_datos.MaterialDAO;
-import unprg.capa_logica.modelos.Material;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
+
 import unprg.capa_presentacion.utils.UiHelper;
 
 /**

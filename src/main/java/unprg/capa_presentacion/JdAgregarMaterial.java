@@ -7,6 +7,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import unprg.capa_datos.MaterialDAO;
 import unprg.capa_logica.modelos.Material;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -25,6 +26,7 @@ public class JdAgregarMaterial extends javax.swing.JDialog {
     public JdAgregarMaterial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         listado();
         configurarFiltro();
     }
@@ -102,6 +104,10 @@ public class JdAgregarMaterial extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtBuscar, "Buscar material...");
+    }
 
     private void pasarDatos(String producto, int ctd) {
         try {
