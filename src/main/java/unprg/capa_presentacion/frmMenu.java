@@ -2,9 +2,14 @@ package unprg.capa_presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Panel;
+import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import unprg.capa_datos.MaterialDAO;
+import unprg.capa_logica.modelos.Material;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,6 +17,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import unprg.capa_presentacion.utils.UiHelper;
 
 /**
  *
@@ -20,19 +26,45 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class frmMenu extends javax.swing.JFrame {
 
     private JTabbedPane contenedorReportes;
+
     /**
      * Creates new form frmMenu
      */
     public frmMenu() {
         initComponents();
 
-        inicializarGrafico();
+        cargarEstilos();
+        UiHelper.inicializarGrafico(panelGrafico);
 
         jdLogin login = new jdLogin(null, true);
         this.setLocationRelativeTo(null);
         login.setResizable(false);
         login.setVisible(true);
         contenedorReportes = new JTabbedPane();
+    }
+    
+    public void cargarEstilos (){
+        // Redondear paneles principales
+        UiHelper.redondearPanel(jPanel1);
+        UiHelper.redondearPanel(jPanel3);
+        UiHelper.redondearPanel(jPanel4);
+        UiHelper.redondearPanel(jPanel5);
+        UiHelper.redondearPanel(jPanel6);
+        //UiHelper.redondearPanel(panelGrafico);
+        
+        // Redondear botones del menú
+        UiHelper.redondearPanel(btnManMateriales);
+        UiHelper.redondearPanel(btnManGestion);
+        UiHelper.redondearPanel(btnManPedido);
+        UiHelper.redondearPanel(btnReportes);
+        
+        //logos
+        UiHelper.establecerIcono(logoReportes, "icons/Inventario.svg",40,40);
+        UiHelper.establecerIcono(logoMaterial, "icons/Inventario.svg",40,40);
+        UiHelper.establecerIcono(logoProyectos, "icons/Inventario.svg",40,40);
+        UiHelper.establecerIcono(logoInventario, "icons/Inventario.svg",40,40);
+        UiHelper.establecerIcono(iconoStats, "icons/stats.svg",30,30,Color.WHITE);
+        
     }
 
     /**
@@ -69,6 +101,7 @@ public class frmMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         panelGrafico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        iconoStats = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -92,9 +125,11 @@ public class frmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(0, 138, 165));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Menu Principal");
 
         btnManMateriales.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,10 +142,10 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(102, 102, 102));
         jLabel19.setText("Gestión de Stock y Almacén");
 
+        jLabel18.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel18.setText("Inventario de Materiales");
 
         logoInventario.setBackground(new java.awt.Color(102, 204, 255));
-        unprg.capa_presentacion.utils.UiHelper.establecerIcono(logoInventario, "icons/Inventario.svg",40,40);
 
         javax.swing.GroupLayout btnManMaterialesLayout = new javax.swing.GroupLayout(btnManMateriales);
         btnManMateriales.setLayout(btnManMaterialesLayout);
@@ -125,7 +160,7 @@ public class frmMenu extends javax.swing.JFrame {
                         .addComponent(jLabel19)))
                 .addGap(20, 20, 20))
             .addGroup(btnManMaterialesLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(84, 84, 84)
                 .addComponent(logoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -149,8 +184,8 @@ public class frmMenu extends javax.swing.JFrame {
         });
 
         logoProyectos.setBackground(new java.awt.Color(102, 204, 255));
-        unprg.capa_presentacion.utils.UiHelper.establecerIcono(logoProyectos, "icons/Inventario.svg",40,40);
 
+        jLabel14.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel14.setText("Gestión de Proyectos");
 
         jLabel15.setFont(new java.awt.Font("sansserif", 0, 10)); // NOI18N
@@ -162,18 +197,16 @@ public class frmMenu extends javax.swing.JFrame {
         btnManGestionLayout.setHorizontalGroup(
             btnManGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnManGestionLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(btnManGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(btnManGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(13, 13, 13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
-                                .addComponent(logoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)))))
+                    .addGroup(btnManGestionLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel15))
+                    .addGroup(btnManGestionLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel14))
+                    .addGroup(btnManGestionLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(logoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         btnManGestionLayout.setVerticalGroup(
@@ -181,7 +214,7 @@ public class frmMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManGestionLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
@@ -196,8 +229,8 @@ public class frmMenu extends javax.swing.JFrame {
         });
 
         logoMaterial.setBackground(new java.awt.Color(102, 204, 255));
-        unprg.capa_presentacion.utils.UiHelper.establecerIcono(logoMaterial, "icons/Inventario.svg",40,40);
 
+        jLabel16.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel16.setText(" Pedidos de Material");
 
         jLabel17.setFont(new java.awt.Font("sansserif", 0, 10)); // NOI18N
@@ -209,14 +242,17 @@ public class frmMenu extends javax.swing.JFrame {
         btnManPedidoLayout.setHorizontalGroup(
             btnManPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnManPedidoLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(btnManPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManPedidoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)))
+                    .addGroup(btnManPedidoLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(btnManPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addGroup(btnManPedidoLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel17))))
+                    .addGroup(btnManPedidoLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         btnManPedidoLayout.setVerticalGroup(
@@ -239,8 +275,8 @@ public class frmMenu extends javax.swing.JFrame {
         });
 
         logoReportes.setBackground(new java.awt.Color(102, 204, 255));
-        unprg.capa_presentacion.utils.UiHelper.establecerIcono(logoReportes, "icons/Inventario.svg",40,40);
 
+        jLabel12.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel12.setText("Reportes del Sistema");
 
         jLabel13.setFont(new java.awt.Font("sansserif", 0, 10)); // NOI18N
@@ -252,15 +288,17 @@ public class frmMenu extends javax.swing.JFrame {
         btnReportesLayout.setHorizontalGroup(
             btnReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnReportesLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(btnReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(btnReportesLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(logoReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(btnReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(btnReportesLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel13))
+                            .addComponent(jLabel12)))
                     .addGroup(btnReportesLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel13))
-                    .addComponent(jLabel12))
+                        .addGap(76, 76, 76)
+                        .addComponent(logoReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         btnReportesLayout.setVerticalGroup(
@@ -283,15 +321,18 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(btnManMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnManGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnManPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,11 +348,12 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(244, 244, 244))
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 138, 165));
 
         panelGrafico.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/stats.png"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Estadisticas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -321,24 +363,30 @@ public class frmMenu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(iconoStats, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(iconoStats, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(0, 138, 165));
 
         jPanel6.setBackground(new java.awt.Color(221, 232, 232));
 
+        jLabel3.setForeground(new java.awt.Color(9, 8, 8));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/alerta.png"))); // NOI18N
         jLabel3.setText("Alertas");
 
@@ -361,16 +409,20 @@ public class frmMenu extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/alertaStock.png"))); // NOI18N
 
+        txtMaterial.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        txtMaterial.setForeground(new java.awt.Color(255, 255, 255));
         txtMaterial.setText("Material");
 
-        txtDescripcionMaterial.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        txtDescripcionMaterial.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         txtDescripcionMaterial.setForeground(new java.awt.Color(51, 51, 51));
         txtDescripcionMaterial.setText("Descripcion stock - minimo");
 
-        txtDescripcionTxtProyecto.setFont(new java.awt.Font("sansserif", 0, 12)); // NOI18N
+        txtDescripcionTxtProyecto.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         txtDescripcionTxtProyecto.setForeground(new java.awt.Color(51, 51, 51));
         txtDescripcionTxtProyecto.setText("DescripcionFecha actual - entrega");
 
+        txtproyecto.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        txtproyecto.setForeground(new java.awt.Color(255, 255, 255));
         txtproyecto.setText("proyecto");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/alertaTiempo.png"))); // NOI18N
@@ -422,14 +474,21 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(0, 138, 165));
 
-        jLabel10.setText("Stocks completos");
+        jLabel10.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Materiales");
 
-        jLabel11.setText("Pedidos Activos");
+        jLabel11.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Pedidos");
 
-        jLabel20.setText("Proyectos en curso");
+        jLabel20.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Proyectos ");
 
+        btnInforme.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         btnInforme.setText("Ver informe detallado.");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -494,20 +553,19 @@ public class frmMenu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,9 +579,9 @@ public class frmMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -577,6 +635,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JPanel btnManMateriales;
     private javax.swing.JPanel btnManPedido;
     private javax.swing.JPanel btnReportes;
+    private javax.swing.JLabel iconoStats;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -616,38 +675,6 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel txtproyecto;
     // End of variables declaration//GEN-END:variables
 
-//para porbar grafico luego lo muevo a uihelper
-    private void inicializarGrafico() {
-        // 1. Datos: Valor, Serie (Stock), Categoría (Material)
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(120, "Stock", "Varillas 1/2\"");
-        dataset.addValue(45, "Stock", "Yeso");
-        dataset.addValue(300, "Stock", "Cemento");
 
-        // 2. Crear el objeto JFreeChart (sin títulos ni leyendas para que sea limpio)
-        JFreeChart chart = ChartFactory.createBarChart(
-            null, null, null, dataset,
-            PlotOrientation.VERTICAL, false, false, false);
-
-        // 3. Personalización Estética (Lo que hablamos antes)
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE); // Fondo blanco como en la imagen
-        plot.setOutlineVisible(false);        // Quitar borde exterior
-        plot.setRangeGridlinesVisible(false); // Quitar líneas horizontales
-
-        // 4. Personalizar las Barras
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, new Color(64, 123, 255)); // El azul de tu captura
-        renderer.setShadowVisible(false);                   // Sin sombras feas
-        renderer.setMaximumBarWidth(0.15);                  // Barras delgadas y elegantes
-
-        // 5. Vincular al JPanel de NetBeans
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBackground(Color.WHITE);
-
-        panelGrafico.removeAll(); // Limpiar por si acaso
-        panelGrafico.add(chartPanel, BorderLayout.CENTER);
-        panelGrafico.revalidate();
-        panelGrafico.repaint();
-    }
+    
 }

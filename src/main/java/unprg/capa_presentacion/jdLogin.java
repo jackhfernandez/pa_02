@@ -19,6 +19,7 @@ public class jdLogin extends javax.swing.JDialog {
     public jdLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarEstilos();
         this.setLocationRelativeTo(null);
     }
 
@@ -38,7 +39,6 @@ public class jdLogin extends javax.swing.JDialog {
         txtPassword = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        recuperarPass = new javax.swing.JLabel();
         lblMensajeError = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,6 +65,7 @@ public class jdLogin extends javax.swing.JDialog {
             }
         });
 
+        btnIniciarSesion.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,16 +73,14 @@ public class jdLogin extends javax.swing.JDialog {
             }
         });
 
+        btnSalir.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-
-        recuperarPass.setBackground(new java.awt.Color(160, 32, 240));
-        recuperarPass.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        recuperarPass.setText("¿Olvidaste tu contraseña?");
 
         javax.swing.GroupLayout panelCardLayout = new javax.swing.GroupLayout(panelCard);
         panelCard.setLayout(panelCardLayout);
@@ -91,9 +90,7 @@ public class jdLogin extends javax.swing.JDialog {
                 .addGroup(panelCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCardLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(panelCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(recuperarPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -129,9 +126,7 @@ public class jdLogin extends javax.swing.JDialog {
                 .addGroup(panelCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(recuperarPass)
-                .addGap(23, 23, 23))
+                .addGap(43, 43, 43))
         );
 
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
@@ -189,7 +184,6 @@ public class jdLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cargarEstilos() {
-        recuperarPass.setForeground(new Color(160, 32, 240));
         UiHelper.estilarCard(panelCard);
         UiHelper.estilarCampo(txtUsuario, "Usuario", "icons/user.svg");
         UiHelper.estilarCampo(txtPassword, "Contraseña", "icons/lock.svg");
@@ -252,7 +246,6 @@ public class jdLogin extends javax.swing.JDialog {
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel lblMensajeError;
     private javax.swing.JPanel panelCard;
-    private javax.swing.JLabel recuperarPass;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

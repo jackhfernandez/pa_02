@@ -1,9 +1,13 @@
 
 package unprg.capa_presentacion;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+
 
 /**
  *
@@ -13,8 +17,11 @@ public class PA_02 {
 
     public static void main(String[] args) {
         System.out.println("Hello Mundo Cruel!");
+
+        
         try {
-            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatIntelliJLaf());
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            FlatCarbonIJTheme.setup();
 
         } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Error UI");
@@ -26,4 +33,5 @@ public class PA_02 {
         });
         
     }
+    
 }
