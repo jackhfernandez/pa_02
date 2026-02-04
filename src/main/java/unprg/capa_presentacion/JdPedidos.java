@@ -1,5 +1,6 @@
 package unprg.capa_presentacion;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.util.Date;
@@ -41,6 +42,21 @@ public class JdPedidos extends javax.swing.JDialog {
         proyectoDAO = new ProyectoDAO();
         llenarTablainicial();
     }
+    
+        private void cargarEstilos() {
+        UiHelper.estilarCampoForm(txtNombreProyecto, "Nombre del proyecto");
+        UiHelper.estilarCampoForm(txtDireccion, "Dirección de entrega");
+        UiHelper.estilarCampoForm(txtNombreProducto, "Material seleccionado");
+        UiHelper.estilarCampoForm(txtDscto, "% descuento");
+        UiHelper.estilarCampoForm(txtNumeroVenta, "Nro. pedido");
+        UiHelper.estilarFecha(dateInicio);
+        UiHelper.estilarFecha(jdFecha);
+        
+        UiHelper.estilarBoton(btnBuscar, "icons/pedidos.svg",Color.YELLOW ,Color.BLACK);
+        UiHelper.estilarBoton(btnAgregarMaterial, "icons/material.svg",Color.YELLOW ,Color.BLACK);
+        UiHelper.estilarBoton(btnGuardarPedido, "icons/pedidos.svg",Color.YELLOW ,Color.BLACK);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,13 +108,15 @@ public class JdPedidos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".: Mantenimiento de Comprobantes :.");
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 211, 252));
 
-        jLabel4.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 72, 108));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Proyecto");
 
-        jLabel5.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel5.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 72, 108));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Direccion");
 
@@ -106,11 +124,11 @@ public class JdPedidos extends javax.swing.JDialog {
 
         txtNombreProyecto.setForeground(new java.awt.Color(0, 102, 153));
 
-        jLabel16.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel16.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 72, 108));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Fecha");
 
-        btnElegirProyecto.setText("Buscar Proyecto");
         btnElegirProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElegirProyectoActionPerformed(evt);
@@ -159,17 +177,20 @@ public class JdPedidos extends javax.swing.JDialog {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(1, 130, 155));
 
-        jLabel7.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 72, 108));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Material");
 
-        jLabel8.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel8.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 72, 108));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Cantidad");
 
-        jLabel9.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel9.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 72, 108));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Descuento");
 
@@ -177,9 +198,12 @@ public class JdPedidos extends javax.swing.JDialog {
 
         txtNombreProducto.setForeground(new java.awt.Color(0, 102, 153));
 
-        btnEliminarProd.setText("Eliminar");
-        
-        btnAgregarMaterial.setText("Agregar Material");
+        btnEliminarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProdActionPerformed(evt);
+            }
+        });
+
         btnAgregarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMaterialActionPerformed(evt);
@@ -248,23 +272,24 @@ public class JdPedidos extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblListado);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
         txtIgv.setForeground(new java.awt.Color(0, 102, 153));
 
         txtSubTotal.setForeground(new java.awt.Color(0, 102, 153));
 
         txtTotal.setForeground(new java.awt.Color(0, 102, 153));
 
-        jLabel13.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel13.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Subtotal");
 
-        jLabel14.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel14.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("TOTAL");
 
-        jLabel15.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel15.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("IGV");
 
@@ -303,9 +328,7 @@ public class JdPedidos extends javax.swing.JDialog {
                 .addGap(38, 38, 38))
         );
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
-
-        btnGuardarPedido.setForeground(new java.awt.Color(0, 102, 153));
+        btnGuardarPedido.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardarPedido.setText("Guardar");
         btnGuardarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,10 +336,10 @@ public class JdPedidos extends javax.swing.JDialog {
             }
         });
 
-        btnAnular.setForeground(new java.awt.Color(0, 102, 153));
+        btnAnular.setForeground(new java.awt.Color(255, 255, 255));
         btnAnular.setText("Anular");
 
-        btnSalir.setForeground(new java.awt.Color(0, 102, 153));
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,17 +371,20 @@ public class JdPedidos extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel10.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel10.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Fecha");
 
         jdFecha.setForeground(new java.awt.Color(0, 102, 153));
 
-        jLabel11.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel11.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Numero");
 
         txtNumeroVenta.setForeground(new java.awt.Color(0, 102, 153));
 
-        btnBuscar.setText("Buscar");
+        btnBuscar.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/alertaBien.png"))); // NOI18N
+        btnBuscar.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/alertaBien.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -503,7 +529,12 @@ public class JdPedidos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnElegirProyectoActionPerformed
     
+    private void btnEliminarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarProdActionPerformed
+
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
+    
         JdAgregarMaterial dialogMaterial = new JdAgregarMaterial((Frame) SwingUtilities.getWindowAncestor(this), true);
         dialogMaterial.setLocationRelativeTo(this);
         dialogMaterial.setVisible(true);
@@ -519,6 +550,7 @@ public class JdPedidos extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Error al agregar material: " + e.getMessage());
             }
         }
+        
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void agregarProducto(String nombreProducto, int cantidad, int descuento) {
@@ -611,15 +643,6 @@ public class JdPedidos extends javax.swing.JDialog {
         tblListado.setModel(modelo);
     }
     
-    private void cargarEstilos() {
-        UiHelper.estilarCampoForm(txtNombreProyecto, "Nombre del proyecto");
-        UiHelper.estilarCampoForm(txtDireccion, "Dirección de entrega");
-        UiHelper.estilarCampoForm(txtNombreProducto, "Material seleccionado");
-        UiHelper.estilarCampoForm(txtDscto, "% descuento");
-        UiHelper.estilarCampoForm(txtNumeroVenta, "Nro. pedido");
-        UiHelper.estilarFecha(dateInicio);
-        UiHelper.estilarFecha(jdFecha);
-    }
 
     private void limpiar() {
         txtNombreProyecto.setText("");

@@ -49,10 +49,10 @@ public class frmMenu extends javax.swing.JFrame {
         UiHelper.redondearPanel(btnReportes);
         
         //logos
-        UiHelper.establecerIcono(logoReportes, "icons/Inventario.svg",40,40);
-        UiHelper.establecerIcono(logoMaterial, "icons/Inventario.svg",40,40);
-        UiHelper.establecerIcono(logoProyectos, "icons/Inventario.svg",40,40);
-        UiHelper.establecerIcono(logoInventario, "icons/Inventario.svg",40,40);
+        UiHelper.establecerIcono(logoReportes, "icons/reportes.svg",40,40,UiHelper.CYAN_BORDE);
+        UiHelper.establecerIcono(logoMaterial, "icons/material.svg",40,40,UiHelper.CYAN_BORDE);
+        UiHelper.establecerIcono(logoProyectos, "icons/proyectos.svg",40,40,UiHelper.CYAN_BORDE);
+        UiHelper.establecerIcono(logoPedido, "icons/pedidos.svg",40,40,UiHelper.CYAN_BORDE);
         UiHelper.establecerIcono(iconoStats, "icons/stats.svg",30,30,Color.WHITE);
         
     }
@@ -75,15 +75,15 @@ public class frmMenu extends javax.swing.JFrame {
         unprg.capa_presentacion.utils.UiHelper.convertirABoton(btnManMateriales);
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        logoInventario = new javax.swing.JLabel();
+        logoMaterial = new javax.swing.JLabel();
         btnManGestion = new javax.swing.JPanel();
         logoProyectos = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnManPedido = new javax.swing.JPanel();
-        logoMaterial = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        logoPedido = new javax.swing.JLabel();
         btnReportes = new javax.swing.JPanel();
         logoReportes = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -135,30 +135,31 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel18.setText("Inventario de Materiales");
 
-        logoInventario.setBackground(new java.awt.Color(102, 204, 255));
+        logoMaterial.setBackground(new java.awt.Color(102, 204, 255));
 
         javax.swing.GroupLayout btnManMaterialesLayout = new javax.swing.GroupLayout(btnManMateriales);
         btnManMateriales.setLayout(btnManMaterialesLayout);
         btnManMaterialesLayout.setHorizontalGroup(
             btnManMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManMaterialesLayout.createSequentialGroup()
+            .addGroup(btnManMaterialesLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(btnManMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addGroup(btnManMaterialesLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel19)))
-                .addGap(20, 20, 20))
-            .addGroup(btnManMaterialesLayout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(logoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManMaterialesLayout.createSequentialGroup()
+                        .addGroup(btnManMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addGroup(btnManMaterialesLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel19)))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManMaterialesLayout.createSequentialGroup()
+                        .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))))
         );
         btnManMaterialesLayout.setVerticalGroup(
             btnManMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnManMaterialesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(logoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18)
                 .addGap(7, 7, 7)
@@ -218,14 +219,14 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
-        logoMaterial.setBackground(new java.awt.Color(102, 204, 255));
-
         jLabel16.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel16.setText(" Pedidos de Material");
 
         jLabel17.setFont(new java.awt.Font("sansserif", 0, 10)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(102, 102, 102));
         jLabel17.setText("Solicitudes a proveedores");
+
+        logoPedido.setBackground(new java.awt.Color(102, 204, 255));
 
         javax.swing.GroupLayout btnManPedidoLayout = new javax.swing.GroupLayout(btnManPedido);
         btnManPedido.setLayout(btnManPedidoLayout);
@@ -241,15 +242,15 @@ public class frmMenu extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel17))))
                     .addGroup(btnManPedidoLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(66, 66, 66)
+                        .addComponent(logoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         btnManPedidoLayout.setVerticalGroup(
             btnManPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnManPedidoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(logoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -480,6 +481,11 @@ public class frmMenu extends javax.swing.JFrame {
 
         btnInforme.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         btnInforme.setText("Ver informe detallado.");
+        btnInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -619,6 +625,13 @@ public class frmMenu extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnReportesMouseClicked
 
+    private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
+        JdInforme ventana = new JdInforme(this, true);
+        ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnInformeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInforme;
     private javax.swing.JPanel btnManGestion;
@@ -651,8 +664,8 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel logoInventario;
     private javax.swing.JLabel logoMaterial;
+    private javax.swing.JLabel logoPedido;
     private javax.swing.JLabel logoProyectos;
     private javax.swing.JLabel logoReportes;
     private javax.swing.JPanel panelGrafico;

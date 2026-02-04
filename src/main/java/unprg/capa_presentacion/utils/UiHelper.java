@@ -65,33 +65,7 @@ public class UiHelper {
         UIManager.put("Component.innerFocusWidth", 1);
     }
 
-    /*
-     * public static void llenarTarjetaPelicula(JPanel panel, Pelicula p) {
-     * panel.removeAll();
-     * panel.setLayout(new BorderLayout(10, 10));
-     * estilarCard(panel);
-     * 
-     * JLabel lblTitulo = new JLabel(p.getTitulo());
-     * lblTitulo.setFont(lblTitulo.getFont().deriveFont(Font.BOLD, 16f));
-     * lblTitulo.setForeground(Color.WHITE);
-     * 
-     * String info = p.getGenero() + " • " + new
-     * SimpleDateFormat("yyyy").format(p.getFechaEstreno());
-     * JLabel lblInfo = new JLabel(info);
-     * lblInfo.setForeground(new Color(180, 180, 180));
-     * 
-     * JPanel pnlTexto = new JPanel(new GridLayout(2, 1));
-     * pnlTexto.setOpaque(false);
-     * pnlTexto.add(lblTitulo);
-     * pnlTexto.add(lblInfo);
-     * 
-     * panel.add(pnlTexto, BorderLayout.SOUTH);
-     * panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-     * 
-     * panel.revalidate();
-     * panel.repaint();
-     * }
-     */
+
 
     public static void estilarFecha(JDateChooser chooser) {
         JButton btnCalendar = chooser.getCalendarButton();
@@ -128,6 +102,28 @@ public class UiHelper {
             boton.setIcon(icon);
         }
     }
+
+        public static void estilarBoton(JButton boton, String iconPath, Color bgColor, Color iconColor) {
+            boton.putClientProperty("JButton.buttonType", "borderless");
+            boton.putClientProperty("JComponent.arc", 20);
+            boton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            boton.setIconTextGap(15);
+
+            boton.putClientProperty("FlatLaf.style",
+                "background: " + colorToHex(bgColor) + ";"
+                    + "foreground: " + colorToHex(TEXTO_SECUNDARIO) + ";"
+                    + "hoverForeground: #ffffff;"
+                    + "hoverBackground: " + colorToHex(FONDO_CARD) + ";"
+                    + "borderColor: " + colorToHex(CYAN_BORDE) + ";");
+
+            if (iconPath != null) {
+            FlatSVGIcon icon = new FlatSVGIcon(iconPath, 22, 22);
+            if (iconColor != null) {
+                icon.setColorFilter(new FlatSVGIcon.ColorFilter(c -> iconColor));
+            }
+            boton.setIcon(icon);
+            }
+        }
 
     public static void estilarBotonSalir(JButton boton, String iconPath, Color hoverColor) {
         boton.putClientProperty("JButton.buttonType", "borderless");
@@ -357,7 +353,7 @@ public class UiHelper {
     // ========== MÉTODOS PARA REPORTES ==========
     
     /**
-     * Estiliza una tabla con el tema FlatLaf oscuro
+     * Estiliza una tabla con el tema FlatLaf oscuro y filos cyan en las líneas
      */
     public static void estilarTabla(JTable tabla) {
         tabla.setBackground(FONDO_CARD);
@@ -372,6 +368,7 @@ public class UiHelper {
         
         tabla.putClientProperty("JTable.showHorizontalLines", true);
         tabla.putClientProperty("JTable.showVerticalLines", true);
+        tabla.putClientProperty("JTable.gridColor", CYAN_BORDE);
         
         // Estilizar header
         JTableHeader header = tabla.getTableHeader();
@@ -380,12 +377,33 @@ public class UiHelper {
         header.setFont(header.getFont().deriveFont(Font.BOLD, 13f));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
         header.setReorderingAllowed(false);
+        header.setBorder(BorderFactory.createLineBorder(CYAN_BORDE, 1));
         
-        // Centrar contenido de celdas
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        // Renderer personalizado con borde cyan en las filas
+        DefaultTableCellRenderer filoRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                java.awt.Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                
+                if (isSelected) {
+                    comp.setBackground(CYAN_BORDE);
+                    comp.setForeground(FONDO_PRINCIPAL);
+                    setFont(getFont().deriveFont(Font.BOLD));
+                } else {
+                    comp.setBackground(row % 2 == 0 ? FONDO_CARD : FONDO_CLARO);
+                    comp.setForeground(TEXTO_PRIMARIO);
+                }
+                
+                setBorder(BorderFactory.createLineBorder(CYAN_BORDE, 1));
+                setHorizontalAlignment(JLabel.CENTER);
+                return comp;
+            }
+        };
+        
+        // Aplicar renderer a todas las columnas
         for (int i = 0; i < tabla.getColumnCount(); i++) {
-            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            tabla.getColumnModel().getColumn(i).setCellRenderer(filoRenderer);
         }
     }
     
