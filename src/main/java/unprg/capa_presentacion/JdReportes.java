@@ -43,12 +43,18 @@ public class JdReportes extends javax.swing.JDialog {
     private TableRowSorter<DefaultTableModel> sorterProyectos;
     private TableRowSorter<DefaultTableModel> sorterPedidos;
     
-    // Labels de estadísticas
+    // Labels de estadísticas (resumen por tab)
     private JLabel lblTotalGastos;
     private JLabel lblTotalMateriales;
     private JLabel lblTotalProyectos;
     private JLabel lblTotalPedidos;
     private JLabel lblValorInventario;
+    
+    // Labels de las cards de estadísticas generales
+    private JLabel lblCardGastoTotal;
+    private JLabel lblCardProyectos;
+    private JLabel lblCardPedidos;
+    private JLabel lblCardInventario;
 
     /**
      * Creates new form JdReportes
@@ -459,10 +465,15 @@ public class JdReportes extends javax.swing.JDialog {
         panelEstadisticas.setBackground(UiHelper.FONDO_OSCURO);
         panelEstadisticas.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         
-        JPanel cardGastoTotal = UiHelper.crearPanelEstadistica("Gasto Total", "S/ 0.00", UiHelper.VERDE_EXITO);
-        JPanel cardProyectos = UiHelper.crearPanelEstadistica("Proyectos", "0", UiHelper.AZUL_INFO);
-        JPanel cardPedidos = UiHelper.crearPanelEstadistica("Pedidos", "0", UiHelper.MORADO_PRINCIPAL);
-        JPanel cardInventario = UiHelper.crearPanelEstadistica("Valor Inventario", "S/ 0.00", UiHelper.AMARILLO_ADVERTENCIA);
+        JPanel cardGastoTotal = UiHelper.crearPanelEstadistica("Gasto Total", "Cargando...", UiHelper.VERDE_EXITO);
+        JPanel cardProyectos = UiHelper.crearPanelEstadistica("Proyectos", "Cargando...", UiHelper.AZUL_INFO);
+        JPanel cardPedidos = UiHelper.crearPanelEstadistica("Pedidos", "Cargando...", UiHelper.MORADO_PRINCIPAL);
+        JPanel cardInventario = UiHelper.crearPanelEstadistica("Valor Inventario", "Cargando...", UiHelper.AMARILLO_ADVERTENCIA);
+        
+        lblCardGastoTotal = obtenerLabelValor(cardGastoTotal);
+        lblCardProyectos = obtenerLabelValor(cardProyectos);
+        lblCardPedidos = obtenerLabelValor(cardPedidos);
+        lblCardInventario = obtenerLabelValor(cardInventario);
         
         panelEstadisticas.add(cardGastoTotal);
         panelEstadisticas.add(cardProyectos);
@@ -679,8 +690,31 @@ public class JdReportes extends javax.swing.JDialog {
     }
     
     private void actualizarEstadisticasGenerales() {
-        // Actualizar las cards de estadísticas en el tab de Gastos
-        // Las cards se actualizarán cuando se recree el panel
+        double gastoTotal = reporteService.calcularGastoTotal();
+        int totalProyectos = reporteService.contarTotalProyectos();
+        int totalPedidos = reporteService.contarTotalPedidos();
+        double valorInventario = reporteService.obtenerValorInventario();
+
+        lblCardGastoTotal.setText(UiHelper.formatearMoneda(gastoTotal));
+        lblCardProyectos.setText(String.valueOf(totalProyectos));
+        lblCardPedidos.setText(String.valueOf(totalPedidos));
+        lblCardInventario.setText(UiHelper.formatearMoneda(valorInventario));
+    }
+
+    /**
+     * Obtiene el JLabel de valor dentro de una card creada por UiHelper.crearPanelEstadistica.
+     * La card tiene un JPanel (GridLayout) con [0]=título y [1]=valor.
+     */
+    private JLabel obtenerLabelValor(JPanel card) {
+        for (java.awt.Component comp : card.getComponents()) {
+            if (comp instanceof JPanel) {
+                JPanel contenido = (JPanel) comp;
+                if (contenido.getComponentCount() >= 2) {
+                    return (JLabel) contenido.getComponent(1);
+                }
+            }
+        }
+        return new JLabel();
     }
 
     private void configurarVentana() {

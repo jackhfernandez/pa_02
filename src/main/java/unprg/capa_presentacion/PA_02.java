@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
-
 /**
  *
  * @author jackh
@@ -27,6 +26,9 @@ public class PA_02 {
         } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Error UI");
         }
+
+
+
         EventQueue.invokeLater(() -> {
             frmMenu menu = new frmMenu();
             menu.setLocationRelativeTo(null);
@@ -34,5 +36,7 @@ public class PA_02 {
         });
         
     }
+
+    
     
 }

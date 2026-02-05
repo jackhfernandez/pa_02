@@ -2,11 +2,18 @@ package unprg.capa_presentacion;
 
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.JDialog;
 
 import javax.swing.JTabbedPane;
 
+import unprg.capa_datos.MaterialDAO;
+import unprg.capa_datos.ProyectoDAO;
+import unprg.capa_logica.modelos.Material;
+import unprg.capa_logica.modelos.Proyecto;
 import unprg.capa_presentacion.utils.UiHelper;
 
 /**
@@ -23,6 +30,7 @@ public class frmMenu extends javax.swing.JFrame {
     public frmMenu() {
         initComponents();
         cargarEstilos();
+        cargarAlertas();
         UiHelper.inicializarGrafico(panelGrafico);
         
         
@@ -317,19 +325,16 @@ public class frmMenu extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(btnManMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(39, 39, 39)
                         .addComponent(btnManGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(39, 39, 39)
                         .addComponent(btnManPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addGap(40, 40, 40)
+                        .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,7 +512,7 @@ public class frmMenu extends javax.swing.JFrame {
                             .addComponent(spinnerProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                             .addComponent(spinnerStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel11)
@@ -544,7 +549,7 @@ public class frmMenu extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGap(0, 1077, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,20 +570,20 @@ public class frmMenu extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(cerrarSesion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cerrarSesion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addContainerGap(869, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,6 +659,52 @@ public class frmMenu extends javax.swing.JFrame {
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         this.dispose();
     }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    /**
+     * Carga las alertas del dashboard: material con mayor stock y proyecto más reciente.
+     */
+    private void cargarAlertas() {
+        cargarAlertaMaterial();
+        cargarAlertaProyecto();
+    }
+
+    private void cargarAlertaMaterial() {
+        List<Material> materiales = new MaterialDAO().listar();
+        if (materiales.isEmpty()) {
+            txtMaterial.setText("Sin materiales");
+            txtDescripcionMaterial.setText("No hay datos registrados");
+            return;
+        }
+
+        Material topStock = materiales.stream()
+                .max(Comparator.comparingInt(Material::getStock))
+                .get();
+
+        txtMaterial.setText(topStock.getNombProducto());
+        txtDescripcionMaterial.setText(topStock.getDescripcion() + " — Stock: " + topStock.getStock());
+    }
+
+    private void cargarAlertaProyecto() {
+        List<Proyecto> proyectos = new ProyectoDAO().listar();
+        if (proyectos.isEmpty()) {
+            txtproyecto.setText("Sin proyectos");
+            txtDescripcionTxtProyecto.setText("No hay datos registrados");
+            return;
+        }
+
+        Proyecto masReciente = proyectos.stream()
+                .filter(p -> p.getFechaInicio() != null)
+                .max(Comparator.comparing(Proyecto::getFechaInicio))
+                .orElse(proyectos.get(0));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha = masReciente.getFechaInicio() != null
+                ? sdf.format(masReciente.getFechaInicio())
+                : "Sin fecha";
+
+        txtproyecto.setText(masReciente.getNombreProyecto());
+        txtDescripcionTxtProyecto.setText(masReciente.getDescripcion() + " — Inicio: " + fecha);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInforme;
