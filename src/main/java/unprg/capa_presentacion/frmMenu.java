@@ -22,14 +22,16 @@ public class frmMenu extends javax.swing.JFrame {
      */
     public frmMenu() {
         initComponents();
-
         cargarEstilos();
         UiHelper.inicializarGrafico(panelGrafico);
-
+        
+        
         jdLogin login = new jdLogin(null, true);
         this.setLocationRelativeTo(null);
         login.setResizable(false);
         login.setVisible(true);
+
+
         contenedorReportes = new JTabbedPane();
     }
     
@@ -55,7 +57,10 @@ public class frmMenu extends javax.swing.JFrame {
         UiHelper.establecerIcono(logoPedido, "icons/pedidos.svg",40,40,UiHelper.CYAN_BORDE);
         UiHelper.establecerIcono(iconoStats, "icons/stats.svg",30,30,Color.WHITE);
         
+        UiHelper.estilarBoton(cerrarSesion, "icons/logout.svg", UiHelper.AMARILLO_ADVERTENCIA, Color.BLACK);
+        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,10 +117,11 @@ public class frmMenu extends javax.swing.JFrame {
         spinnerProyectos = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        cerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBackground(new java.awt.Color(0, 138, 165));
+        jPanel5.setBackground(new java.awt.Color(0, 185, 221));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 15)); // NOI18N
@@ -339,7 +345,7 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(244, 244, 244))
         );
 
-        jPanel1.setBackground(new java.awt.Color(0, 138, 165));
+        jPanel1.setBackground(new java.awt.Color(0, 185, 221));
 
         panelGrafico.setLayout(new java.awt.BorderLayout());
 
@@ -373,7 +379,7 @@ public class frmMenu extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 138, 165));
+        jPanel3.setBackground(new java.awt.Color(0, 185, 221));
 
         jPanel6.setBackground(new java.awt.Color(221, 232, 232));
 
@@ -465,7 +471,7 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
-        jPanel4.setBackground(new java.awt.Color(0, 138, 165));
+        jPanel4.setBackground(new java.awt.Color(0, 185, 221));
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -545,6 +551,13 @@ public class frmMenu extends javax.swing.JFrame {
             .addGap(0, 34, Short.MAX_VALUE)
         );
 
+        cerrarSesion.setText("Cerrar Sesión");
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -554,13 +567,17 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(cerrarSesion)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -576,7 +593,9 @@ public class frmMenu extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addComponent(cerrarSesion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -632,12 +651,17 @@ public class frmMenu extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnInformeActionPerformed
 
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrarSesionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInforme;
     private javax.swing.JPanel btnManGestion;
     private javax.swing.JPanel btnManMateriales;
     private javax.swing.JPanel btnManPedido;
     private javax.swing.JPanel btnReportes;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel iconoStats;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

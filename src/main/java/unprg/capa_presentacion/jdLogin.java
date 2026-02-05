@@ -133,19 +133,24 @@ public class jdLogin extends javax.swing.JDialog {
         jLabel3.setText("® 2026 El mejor grupo - Derechos reservados");
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 211, 252));
         jLabel4.setText("EPICIANO ALBAÑIL");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Inicia Sesion para ver el catalogo completo");
 
-        labelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/movie.png"))); // NOI18N
+        labelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/epicianoAlbañil.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(labelLogo)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -155,20 +160,17 @@ public class jdLogin extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addGap(104, 104, 104))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147))
+                        .addComponent(jLabel4)
+                        .addGap(130, 130, 130))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(9, 9, 9)))
-                        .addGap(112, 112, 112))))
+                        .addComponent(jLabel5)
+                        .addGap(121, 121, 121))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(labelLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,7 +216,7 @@ public class jdLogin extends javax.swing.JDialog {
         objUsuario.setClave(password);
 
         if (objUsuario.iniciaSesion()) {
-            this.dispose(); // Cerrar la ventana de login
+            this.dispose();
         } else {
             lblMensajeError.setText("Usuario o contraseña incorrectos.");
             UiHelper.setEstadoError(txtUsuario, true);

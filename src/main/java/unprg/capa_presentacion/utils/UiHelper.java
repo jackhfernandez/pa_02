@@ -65,6 +65,38 @@ public class UiHelper {
         UIManager.put("Component.innerFocusWidth", 1);
     }
 
+    /**
+     * Aplica estilos globales a toda la aplicación.
+     * Llamar UNA vez después de configurar el Look and Feel.
+     */
+    public static void aplicarEstiloGlobal() {
+        // 1. Tooltips estilizados (fondo oscuro, borde cyan, texto blanco)
+        UIManager.put("ToolTip.background", FONDO_CARD);
+        UIManager.put("ToolTip.foreground", TEXTO_PRIMARIO);
+        UIManager.put("ToolTip.border", BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(CYAN_BORDE, 1),
+            BorderFactory.createEmptyBorder(4, 8, 4, 8)
+        ));
+
+        // 3. Scrollbars delgadas y estilizadas
+        UIManager.put("ScrollBar.width", 8);
+        UIManager.put("ScrollBar.thumbArc", 999);
+        UIManager.put("ScrollBar.thumbInsets", new java.awt.Insets(2, 2, 2, 2));
+        UIManager.put("ScrollBar.track", FONDO_PRINCIPAL);
+        UIManager.put("ScrollBar.thumb", CYAN_BORDE.darker());
+        UIManager.put("ScrollBar.hoverThumbColor", CYAN_BORDE);
+        UIManager.put("ScrollBar.showButtons", false);
+
+        // 5. Menú contextual / PopupMenu estilizado
+        UIManager.put("PopupMenu.background", FONDO_CARD);
+        UIManager.put("PopupMenu.foreground", TEXTO_PRIMARIO);
+        UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(CYAN_BORDE, 1));
+        UIManager.put("MenuItem.background", FONDO_CARD);
+        UIManager.put("MenuItem.foreground", TEXTO_PRIMARIO);
+        UIManager.put("MenuItem.selectionBackground", FONDO_CLARO);
+        UIManager.put("MenuItem.selectionForeground", CYAN_BORDE);
+    }
+
 
 
     public static void estilarFecha(JDateChooser chooser) {
@@ -74,16 +106,25 @@ public class UiHelper {
         btnCalendar.setForeground(FONDO_PRINCIPAL);
         JTextField editor = (JTextField) chooser.getDateEditor().getUiComponent();
         editor.putClientProperty("JTextField.arc", 999);
+        editor.setForeground(TEXTO_PRIMARIO);
+        editor.setCaretColor(TEXTO_PRIMARIO);
         editor.putClientProperty("FlatLaf.style",
                 "background: " + colorToHex(FONDO_CARD) + ";"
-                        + "foreground: #ffffff;"
+                        + "foreground: " + colorToHex(TEXTO_PRIMARIO) + ";"
                         + "borderColor: " + colorToHex(CYAN_BORDE) + ";"
                         + "focusedBorderColor: " + colorToHex(CYAN_BORDE));
         chooser.setBorder(null);
         chooser.setOpaque(false);
+
+        // Re-aplicar color blanco cada vez que se selecciona una fecha
+        chooser.addPropertyChangeListener("date", evt -> {
+            editor.setForeground(TEXTO_PRIMARIO);
+            editor.setCaretColor(TEXTO_PRIMARIO);
+        });
     }
 
     public static void estilarBotonSidebar(JButton boton, String iconPath) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "borderless");
         boton.putClientProperty("JComponent.arc", 20);
         boton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -104,14 +145,19 @@ public class UiHelper {
     }
 
         public static void estilarBoton(JButton boton, String iconPath, Color bgColor, Color iconColor) {
+            boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             boton.putClientProperty("JButton.buttonType", "borderless");
             boton.putClientProperty("JComponent.arc", 20);
             boton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
             boton.setIconTextGap(15);
 
+            // Determinar si el fondo es claro para usar texto negro, o texto claro si es oscuro
+            double luminancia = (0.299 * bgColor.getRed() + 0.587 * bgColor.getGreen() + 0.114 * bgColor.getBlue()) / 255.0;
+            Color textoColor = luminancia > 0.5 ? FONDO_PRINCIPAL : TEXTO_SECUNDARIO;
+
             boton.putClientProperty("FlatLaf.style",
                 "background: " + colorToHex(bgColor) + ";"
-                    + "foreground: " + colorToHex(TEXTO_SECUNDARIO) + ";"
+                    + "foreground: " + colorToHex(textoColor) + ";"
                     + "hoverForeground: #ffffff;"
                     + "hoverBackground: " + colorToHex(FONDO_CARD) + ";"
                     + "borderColor: " + colorToHex(CYAN_BORDE) + ";");
@@ -126,6 +172,7 @@ public class UiHelper {
         }
 
     public static void estilarBotonSalir(JButton boton, String iconPath, Color hoverColor) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "borderless");
         boton.putClientProperty("JComponent.arc", 15);
         boton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -235,6 +282,7 @@ public class UiHelper {
     }
 
     public static void estilarBotonPrincipal(JButton boton) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "roundRect");
         boton.putClientProperty("JButton.arc", 999);
         boton.setBackground(CYAN_BORDE);
@@ -245,7 +293,14 @@ public class UiHelper {
     public static void estilarCard(JComponent panel) {
         panel.putClientProperty("FlatLaf.style",
                 "arc: 40; background: " + colorToHex(FONDO_CARD) + ";");
-        panel.setBorder(BorderFactory.createLineBorder(CYAN_BORDE, 1));
+        // Efecto glow: borde cyan + sombra exterior suave
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 211, 252, 60), 3),  // glow exterior
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(CYAN_BORDE, 1),              // borde principal
+                BorderFactory.createEmptyBorder(2, 2, 2, 2)                 // padding interno
+            )
+        ));
     }
 
     /**
@@ -501,6 +556,7 @@ public class UiHelper {
      * Estiliza un botón secundario (para acciones como exportar, refrescar)
      */
     public static void estilarBotonSecundario(JButton boton) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "roundRect");
         boton.putClientProperty("FlatLaf.style",
             "background: " + colorToHex(FONDO_CARD) + ";" +
@@ -588,12 +644,84 @@ public class UiHelper {
             return arcRadius;
         }
     }
-    
-    
+
+
+    // ========== BOTONES DE OPERACIÓN (AGREGAR, MODIFICAR, LIMPIAR, SALIR) ==========
+
+    /** Color teal para operaciones generales (Agregar, Modificar, Limpiar) */
+    public static final Color TEAL_OPERACION = new Color(0, 150, 136);
+    /** Color teal hover */
+    private static final Color TEAL_HOVER = new Color(0, 121, 107);
+    /** Color rojo para botón Salir */
+    private static final Color ROJO_SALIR = new Color(211, 47, 47);
+    /** Color rojo hover para botón Salir */
+    private static final Color ROJO_SALIR_HOVER = new Color(183, 28, 28);
+
+    /**
+     * Estiliza un botón de operación general (AGREGAR, MODIFICAR, LIMPIAR).
+     * Fondo teal, texto blanco, icono SVG blanco con bordes redondeados.
+     *
+     * @param boton    El JButton a estilizar.
+     * @param iconPath Ruta del SVG dentro del classpath (ej: "icons/plus.svg").
+     */
+    public static void estilarBotonOperacion(JButton boton, String iconPath) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton.putClientProperty("JButton.buttonType", "roundRect");
+        boton.putClientProperty("JComponent.arc", 12);
+        boton.setIconTextGap(8);
+        boton.setFocusable(false);
+        boton.setFont(boton.getFont().deriveFont(java.awt.Font.BOLD, 12f));
+
+        boton.putClientProperty("FlatLaf.style",
+                "background: " + colorToHex(TEAL_OPERACION) + ";"
+                        + "foreground: #ffffff;"
+                        + "hoverBackground: " + colorToHex(TEAL_HOVER) + ";"
+                        + "hoverForeground: #ffffff;"
+                        + "pressedBackground: " + colorToHex(TEAL_HOVER.darker()) + ";"
+                        + "borderWidth: 0;"
+                        + "innerFocusWidth: 0;");
+
+        if (iconPath != null) {
+            FlatSVGIcon icon = new FlatSVGIcon(iconPath, 18, 18);
+            icon.setColorFilter(new FlatSVGIcon.ColorFilter(c -> Color.WHITE));
+            boton.setIcon(icon);
+        }
+    }
+
+    /**
+     * Estiliza el botón SALIR con fondo rojo, texto blanco e icono SVG blanco.
+     *
+     * @param boton    El JButton a estilizar.
+     * @param iconPath Ruta del SVG (ej: "icons/salir.svg").
+     */
+    public static void estilarBotonSalirOperacion(JButton boton, String iconPath) {
+        boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton.putClientProperty("JButton.buttonType", "roundRect");
+        boton.putClientProperty("JComponent.arc", 12);
+        boton.setIconTextGap(8);
+        boton.setFocusable(false);
+        boton.setFont(boton.getFont().deriveFont(java.awt.Font.BOLD, 12f));
+
+        boton.putClientProperty("FlatLaf.style",
+                "background: " + colorToHex(ROJO_SALIR) + ";"
+                        + "foreground: #ffffff;"
+                        + "hoverBackground: " + colorToHex(ROJO_SALIR_HOVER) + ";"
+                        + "hoverForeground: #ffffff;"
+                        + "pressedBackground: " + colorToHex(ROJO_SALIR_HOVER.darker()) + ";"
+                        + "borderWidth: 0;"
+                        + "innerFocusWidth: 0;");
+
+        if (iconPath != null) {
+            FlatSVGIcon icon = new FlatSVGIcon(iconPath, 18, 18);
+            icon.setColorFilter(new FlatSVGIcon.ColorFilter(c -> Color.WHITE));
+            boton.setIcon(icon);
+        }
+    }
+
     //grafico 
     public static void inicializarGrafico(JPanel panel) {
         // Colores del tema
-        Color fondoPanel = new Color(0, 138, 165);      // Teal del fondo
+        Color fondoPanel = new Color(0,185,221);      // Teal del fondo
         Color colorBarras = new Color(255, 200, 50);    // Amarillo/dorado que contrasta bien
         Color colorTexto = new Color(255, 255, 255);    // Blanco para texto
         Color colorEjes = new Color(200, 230, 240);     // Gris claro para ejes

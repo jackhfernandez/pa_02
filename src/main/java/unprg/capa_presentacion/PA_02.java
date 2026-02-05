@@ -22,6 +22,7 @@ public class PA_02 {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
             FlatCarbonIJTheme.setup();
+            unprg.capa_presentacion.utils.UiHelper.aplicarEstiloGlobal();
 
         } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Error UI");

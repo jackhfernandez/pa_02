@@ -48,7 +48,7 @@ public class JdAgregarMaterial extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Ingrese nombre del producto");
 
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,8 +96,8 @@ public class JdAgregarMaterial extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
         );
@@ -107,6 +107,9 @@ public class JdAgregarMaterial extends javax.swing.JDialog {
 
     private void cargarEstilos() {
         UiHelper.estilarCampoForm(txtBuscar, "Buscar material...");
+
+        // Tabla
+        UiHelper.estilarTabla(tblListado);
     }
 
     private void pasarDatos(String producto, int ctd) {

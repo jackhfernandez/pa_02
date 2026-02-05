@@ -190,8 +190,9 @@ public class JdReportes extends javax.swing.JDialog {
         JLabel lblFiltro = new JLabel("🔍 Buscar:");
         lblFiltro.setForeground(UiHelper.TEXTO_PRIMARIO);
         
-        JTextField txtBuscar = new JTextField(20);
+        JTextField txtBuscar = new JTextField(35);
         UiHelper.estilarCampoBusqueda(txtBuscar, "Buscar por nombre de material...");
+        txtBuscar.setPreferredSize(new Dimension(450, 45));
         
         JComboBox<String> cbFiltroStock = new JComboBox<>(new String[]{"Todos", "Stock Bajo (≤10)", "Sin Stock"});
         UiHelper.estilarComboBox(cbFiltroStock);
@@ -286,8 +287,9 @@ public class JdReportes extends javax.swing.JDialog {
         JLabel lblFiltro = new JLabel("🔍 Buscar:");
         lblFiltro.setForeground(UiHelper.TEXTO_PRIMARIO);
         
-        JTextField txtBuscar = new JTextField(25);
+        JTextField txtBuscar = new JTextField(35);
         UiHelper.estilarCampoBusqueda(txtBuscar, "Buscar por nombre de proyecto...");
+        txtBuscar.setPreferredSize(new Dimension(450, 45));
         
         panelFiltros.add(lblFiltro);
         panelFiltros.add(txtBuscar);
@@ -362,8 +364,9 @@ public class JdReportes extends javax.swing.JDialog {
         JLabel lblFiltroMaterial = new JLabel("   📦 Material:");
         lblFiltroMaterial.setForeground(UiHelper.TEXTO_PRIMARIO);
         
-        JTextField txtMaterial = new JTextField(15);
+        JTextField txtMaterial = new JTextField(25);
         UiHelper.estilarCampoBusqueda(txtMaterial, "Buscar material...");
+        txtMaterial.setPreferredSize(new Dimension(350, 45));
         
         panelFiltros.add(lblFiltroProyecto);
         panelFiltros.add(cbProyecto);
