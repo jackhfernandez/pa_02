@@ -2,33 +2,13 @@ package unprg.capa_presentacion.utils;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.toedter.calendar.JDateChooser;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import javax.swing.*;
+import javax.swing.table.*;
+import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -302,38 +282,11 @@ public class UiHelper {
             )
         ));
     }
-
-    /**
-     * Establece el icono principal para un JLabel usando un archivo SVG.
-     * <br>
-     * <b>Ejemplo de uso en "Custom Code" (Post-Creation Code) de NetBeans:</b>
-     * 
-     * <pre>
-     * unprg.capa_presentacion.utils.UiHelper.establecerIconoPrincipal(logoInventario, "icons/Inventario.svg");
-     * </pre>
-     * 
-     * @param label El componente JLabel al que asignar el icono.
-     * @param path  Ruta del recurso dentro del classpath (ej:
-     *              "icons/Inventario.svg").
-     */
+    
     public static void establecerIconoPrincipal(JLabel label, String path) {
         establecerIcono(label, path, 60, 60);
     }
 
-    /**
-     * Establece un icono SVG con dimensiones perzonalizadas.
-     * <br>
-     * <b>Ejemplo:</b>
-     * 
-     * <pre>
-     * UiHelper.establecerIcono(lblPeque, "icons/user.svg", 24, 24);
-     * </pre>
-     * 
-     * @param label  El label donde se pondrá el icono.
-     * @param path   Ruta del SVG (ej: "icons/icon.svg").
-     * @param width  Ancho deseado en pixeles.
-     * @param height Alto deseado en pixeles.
-     */
     public static void establecerIcono(JLabel label, String path, int width, int height) {
         FlatSVGIcon icono = new FlatSVGIcon(path, width, height);
         label.setIcon(icono);
@@ -351,14 +304,6 @@ public class UiHelper {
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    /**
-     * Convierte un JPanel en un botón interactivo.
-     * Agrega eventos de mouse para cambiar el color de fondo al pasar el cursor.
-     * Al entrar, oscurece el color (resta 20 a RGB). Al salir, restaura el
-     * original.
-     * 
-     * @param panel El JPanel al que se le agregarán los efectos.
-     */
     public static void convertirABoton(JPanel panel) {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             private Color colorOriginal = panel.getBackground(); // Capturamos una sola vez
@@ -405,8 +350,6 @@ public class UiHelper {
         });
     }
 
-    // ========== MÉTODOS PARA REPORTES ==========
-    
     /**
      * Estiliza una tabla con el tema FlatLaf oscuro y filos cyan en las líneas
      */
@@ -461,19 +404,13 @@ public class UiHelper {
             tabla.getColumnModel().getColumn(i).setCellRenderer(filoRenderer);
         }
     }
-    
-    /**
-     * Estiliza un JScrollPane para tablas
-     */
+   
     public static void estilarScrollPane(JScrollPane scrollPane) {
         scrollPane.setBorder(BorderFactory.createLineBorder(CYAN_BORDE, 1));
         scrollPane.getViewport().setBackground(FONDO_CARD);
         scrollPane.putClientProperty("JScrollPane.smoothScrolling", true);
     }
     
-    /**
-     * Estiliza un JTabbedPane con el tema personalizado
-     */
     public static void estilarTabbedPane(JTabbedPane tabbedPane) {
         tabbedPane.putClientProperty("JTabbedPane.tabType", "card");
         tabbedPane.putClientProperty("JTabbedPane.tabHeight", 40);
@@ -482,11 +419,8 @@ public class UiHelper {
         tabbedPane.putClientProperty("JTabbedPane.selectedForeground", FONDO_PRINCIPAL);
         tabbedPane.putClientProperty("JTabbedPane.showTabSeparators", false);
         tabbedPane.setFont(tabbedPane.getFont().deriveFont(Font.BOLD, 12f));
-    }
+    }    
     
-    /**
-     * Estiliza un campo de búsqueda para filtros
-     */
     public static void estilarCampoBusqueda(JTextField campo, String placeholder) {
         String style = "background: " + colorToHex(FONDO_CARD) + ";"
                 + "foreground: #ffffff;"
@@ -508,10 +442,7 @@ public class UiHelper {
             // Si no existe el icono, continuar sin él
         }
     }
-    
-    /**
-     * Estiliza un JComboBox
-     */
+   
     public static void estilarComboBox(JComboBox<?> combo) {
         combo.putClientProperty("JComboBox.buttonStyle", "none");
         combo.putClientProperty("FlatLaf.style", 
@@ -522,9 +453,6 @@ public class UiHelper {
             "buttonArrowColor: " + colorToHex(FONDO_PRINCIPAL) + ";");
     }
     
-    /**
-     * Crea un panel de estadística para el dashboard de reportes
-     */
     public static JPanel crearPanelEstadistica(String titulo, String valor, Color colorAccento) {
         JPanel panel = new JPanel(new BorderLayout(10, 5));
         panel.setBackground(FONDO_CARD);
@@ -552,9 +480,6 @@ public class UiHelper {
         return panel;
     }
     
-    /**
-     * Estiliza un botón secundario (para acciones como exportar, refrescar)
-     */
     public static void estilarBotonSecundario(JButton boton) {
         boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "roundRect");
@@ -565,18 +490,11 @@ public class UiHelper {
             "borderColor: " + colorToHex(CYAN_BORDE) + ";");
         boton.setFocusable(false);
     }
-    
-    /**
-     * Formatea un valor monetario a string
-     */
+ 
     public static String formatearMoneda(double valor) {
         return String.format("S/ %.2f", valor);
     }
 
-    /**
-     * Redondea las esquinas de un panel existente con un radio personalizado.
-     * Aplica pintura personalizada para dibujar esquinas redondeadas.
-     */
     public static void redondearPanel(JPanel panel, int arcRadius) {
         final Color bgColor = panel.getBackground();
         panel.setOpaque(false);
@@ -595,17 +513,10 @@ public class UiHelper {
         });
     }
 
-    /**
-     * Redondea las esquinas de un panel con radio por defecto (20)
-     */
     public static void redondearPanel(JPanel panel) {
         redondearPanel(panel, 20);
     }
 
-    /**
-     * Clase de panel con esquinas redondeadas para usar en nuevos componentes.
-     * Uso: new UiHelper.RoundedPanel(20) en lugar de new JPanel()
-     */
     public static class RoundedPanel extends JPanel {
         private int arcRadius;
         private Color backgroundColor;
@@ -645,9 +556,6 @@ public class UiHelper {
         }
     }
 
-
-    // ========== BOTONES DE OPERACIÓN (AGREGAR, MODIFICAR, LIMPIAR, SALIR) ==========
-
     /** Color teal para operaciones generales (Agregar, Modificar, Limpiar) */
     public static final Color TEAL_OPERACION = new Color(0, 150, 136);
     /** Color teal hover */
@@ -657,13 +565,6 @@ public class UiHelper {
     /** Color rojo hover para botón Salir */
     private static final Color ROJO_SALIR_HOVER = new Color(183, 28, 28);
 
-    /**
-     * Estiliza un botón de operación general (AGREGAR, MODIFICAR, LIMPIAR).
-     * Fondo teal, texto blanco, icono SVG blanco con bordes redondeados.
-     *
-     * @param boton    El JButton a estilizar.
-     * @param iconPath Ruta del SVG dentro del classpath (ej: "icons/plus.svg").
-     */
     public static void estilarBotonOperacion(JButton boton, String iconPath) {
         boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "roundRect");
@@ -688,12 +589,6 @@ public class UiHelper {
         }
     }
 
-    /**
-     * Estiliza el botón SALIR con fondo rojo, texto blanco e icono SVG blanco.
-     *
-     * @param boton    El JButton a estilizar.
-     * @param iconPath Ruta del SVG (ej: "icons/salir.svg").
-     */
     public static void estilarBotonSalirOperacion(JButton boton, String iconPath) {
         boton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton.putClientProperty("JButton.buttonType", "roundRect");

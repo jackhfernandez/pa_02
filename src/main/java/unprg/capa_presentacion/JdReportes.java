@@ -200,7 +200,7 @@ public class JdReportes extends javax.swing.JDialog {
         UiHelper.estilarCampoBusqueda(txtBuscar, "Buscar por nombre de material...");
         txtBuscar.setPreferredSize(new Dimension(450, 45));
         
-        JComboBox<String> cbFiltroStock = new JComboBox<>(new String[]{"Todos", "Stock Bajo (≤10)", "Sin Stock"});
+        JComboBox<String> cbFiltroStock = new JComboBox<>(new String[]{"Todos", "Stock Bajo (≤100)", "Sin Stock"});
         UiHelper.estilarComboBox(cbFiltroStock);
         
         panelFiltros.add(lblFiltro);

@@ -657,7 +657,12 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInformeActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
-        this.dispose();
+        this.setVisible(false);
+        jdLogin login = new jdLogin(this, true);
+        login.setLocationRelativeTo(this);
+        login.setResizable(false);
+        login.setVisible(true);
+        this.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     /**

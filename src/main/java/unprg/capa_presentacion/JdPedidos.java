@@ -112,7 +112,6 @@ public class JdPedidos extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".: Mantenimiento de Comprobantes :.");
 
         jPanel1.setBackground(new java.awt.Color(0, 211, 252));
 
